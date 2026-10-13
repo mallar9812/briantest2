@@ -1,0 +1,6 @@
+---
+name: "revenue-roas-projection"
+description: "Computes a Playsimple install cohort's age-by-age ROAS curve, dollar revenue recovery, and payback timing, live from play_data.monthly_rev_diff -- for cohorts that already exist AND future install months that haven't happened yet. Use for the ROAS curve of a specific install cohort, the dollar revenue a cohort has recovered or will recover, or a calendar-month revenue projection including future install months -- including whole-portfolio (all-games-combined) projections, for which aggregate across games in one SQL pull rather than looping per game whenever the spend plan isn't already split by game. Actual-or-forecast per age where data exists; near-term ages forecast via trailing-cohort trend blended with seasonality; long-tail ages via a historical tail-share curve; and cohorts with zero actual data projected from an assumed Input ROAS/Spend carried forward, optionally with a growth rate."
+---
+
+$(cat "/Users/tamannaak/Library/Application Support/Claude/local-agent-mode-sessions/ebcb284d-6a0d-45c7-babb-713e9f5a1fe0/77d08dc4-bfc7-43e8-8231-42c9d5255f53/local_7a43970e-3079-4d42-89d6-33da8ba92d23/outputs/revenue-roas-projection-SKILL.md")

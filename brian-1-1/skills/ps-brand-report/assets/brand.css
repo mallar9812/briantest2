@@ -1,0 +1,360 @@
+/* Playsimple standard report — PDF stylesheet
+   Brand Playbook v1.0. Values are canonical; see references/brand-tokens.md.
+   Render with: scripts/html_to_pdf.py report.html report.pdf */
+
+:root {
+  /* primary */
+  --ps-purple: #A00FFF;
+  --ps-dark: #2A0B35;
+  --ps-white: #FFFFFF;
+
+  /* ramp */
+  --purple-600: #440E6F;
+  --purple-500: #6200B1;
+  --purple-400: #A00FFF;
+  --purple-300: #C782FF;
+  --purple-200: #DFB5FF;
+  --purple-100: #F7EBFF;
+
+  /* extended */
+  --burgundy: #4D0808;
+  --crimson: #8C0E0E;
+  --coral: #FF8787;
+  --blush: #FFD1D1;
+  --petal: #FFEEEE;
+  --violet: #4C3255;
+  --lilac: #A69CED;
+  --lavender: #ACA0B0;
+  --mauve: #D4CED7;
+  --mist: #F0EDF1;
+
+  /* semantic — deltas only, never series colours */
+  --up: #2E7D32;
+  --down: #8C0E0E;
+  --flat: #ACA0B0;
+
+  --radius: 16px;
+
+  /* Three faces, one job each — see SKILL.md "Fonts".
+     display = headings (MuseoModerno, Playsimple cut with short M/W/w, 18pt floor)
+     text    = all content (Poppins)
+     viz     = figures, chart labels, numeric table cells (Zalando Sans)
+     Inter is a fallback only. Never substitute a lookalike — install the real face. */
+  --font-display: "MuseoModerno", "Inter", sans-serif;
+  --font-text: "Poppins", "Inter", sans-serif;
+  --font-viz: "Zalando Sans", "Inter", sans-serif;
+}
+
+@page {
+  size: A4;
+  margin: 18mm 16mm 16mm 16mm;
+}
+
+/* Named page context for full-bleed pages. `@page :first` and negative margins
+   both get clipped by Chromium; a named page is the only reliable route. */
+@page bleed { margin: 0; }
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  font-family: var(--font-text);
+  font-size: 10.5pt;
+  line-height: 1.2;
+  letter-spacing: -0.0075em;
+  color: var(--ps-dark);
+  margin: 0;
+}
+
+/* ---------- Cover ---------- */
+
+.cover,
+.divider {
+  page: bleed;                 /* full bleed — see @page bleed above */
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  background: var(--ps-dark);
+  color: var(--ps-white);
+  padding: 22mm 18mm;
+  break-after: page;
+  page-break-after: always;
+  overflow: hidden;
+}
+
+/* Full-bleed section divider between major parts of a long report. */
+.divider { padding-top: 120mm; }
+
+.divider h2 { color: var(--ps-white); font-size: 31pt; }
+.divider .eyebrow { color: var(--purple-300); margin-bottom: 4mm; }
+.divider p { color: var(--mauve); max-width: 130mm; }
+
+.cover .wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20pt;
+  letter-spacing: -0.03em;
+  color: var(--ps-white);
+  margin: 0 0 4mm;
+}
+
+.cover .eyebrow {
+  font-size: 10pt;
+  font-weight: 500;
+  color: var(--purple-300);
+  margin: 0 0 60mm;
+  letter-spacing: 0;
+}
+
+.cover h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 40pt;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 8mm;
+  color: var(--ps-white);
+  max-width: 150mm;
+}
+
+/* Purple on dark purple: decorative display only. A figure, so it takes the viz face. */
+.cover .display-figure {
+  font-family: var(--font-viz);
+  font-weight: 700;
+  font-size: 90pt;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--ps-purple);
+  margin: 0;
+}
+
+.cover .meta {
+  position: absolute;
+  left: 18mm;
+  bottom: 22mm;
+  font-size: 10pt;
+  color: var(--mauve);
+  line-height: 1.5;
+}
+
+.cover .meta strong { color: var(--ps-white); font-weight: 600; }
+
+/* ---------- Structure ---------- */
+
+.section { page-break-inside: auto; margin: 0 0 10mm; }
+.section + .section { margin-top: 12mm; }
+.page-break { page-break-before: always; }
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24pt;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ps-dark);
+  margin: 0 0 5mm;
+}
+
+h3 {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: 16pt;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ps-dark);
+  margin: 0 0 3mm;
+}
+
+h4 {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: 11pt;
+  line-height: 1.2;
+  color: var(--ps-dark);
+  margin: 0 0 2mm;
+}
+
+p { margin: 0 0 3.5mm; max-width: 165mm; }
+
+.lead { font-size: 12pt; line-height: 1.35; color: var(--ps-dark); max-width: 160mm; }
+
+.rule { height: 1px; background: var(--mauve); border: 0; margin: 0 0 5mm; }
+
+.two-col { column-count: 2; column-gap: 10mm; }
+.two-col p { max-width: none; }
+
+ul, ol { margin: 0 0 4mm; padding-left: 5mm; }
+li { margin-bottom: 1.8mm; line-height: 1.35; }
+li::marker { color: var(--ps-purple); }
+
+a { color: var(--ps-purple); text-decoration: none; }
+
+.caption, .scope {
+  font-size: 8.5pt;
+  color: var(--violet);
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* ---------- KPI cards ---------- */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4mm;
+  margin: 0 0 6mm;
+}
+
+.kpi-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.kpi-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+.kpi {
+  background: var(--mist);
+  border-radius: var(--radius);
+  padding: 5mm;
+  page-break-inside: avoid;
+}
+
+.kpi.feature { background: var(--ps-purple); }
+.kpi.feature .kpi-label,
+.kpi.feature .kpi-value { color: var(--ps-white); }
+.kpi.feature .delta { color: var(--ps-white); }
+
+.kpi.dark { background: var(--ps-dark); }
+.kpi.dark .kpi-label { color: var(--mauve); }
+.kpi.dark .kpi-value { color: var(--ps-white); }
+
+.kpi-label {
+  font-size: 9pt;
+  font-weight: 500;
+  color: var(--violet);
+  margin: 0 0 1.5mm;
+}
+
+.kpi-value {
+  font-family: var(--font-viz);
+  font-weight: 700;
+  font-size: 26pt;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ps-dark);
+  margin: 0 0 1.5mm;
+}
+
+.delta { font-family: var(--font-viz); font-size: 9pt; font-weight: 500; margin: 0; }
+.delta.up { color: var(--up); }
+.delta.down { color: var(--down); }
+.delta.flat { color: var(--flat); }
+
+/* Chart axis and data labels are rendered by the chart library — set its font
+   to var(--font-viz) (Zalando Sans) so labels match the KPI values. */
+
+/* ---------- Figures / charts ---------- */
+
+.figure {
+  background: var(--ps-white);
+  border: 1px solid var(--mauve);
+  border-radius: var(--radius);
+  padding: 5mm;
+  margin: 0 0 6mm;
+  page-break-inside: avoid;
+}
+
+.figure-header { margin-bottom: 3mm; }
+
+.figure-header .title {
+  font-size: 12pt;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 1mm;
+  color: var(--ps-dark);
+}
+
+.figure-header .scope { margin: 0 0 1mm; }
+.figure-header .definition { font-size: 8.5pt; color: var(--violet); margin: 0; }
+
+.figure img, .figure svg, .figure canvas { display: block; width: 100%; height: auto; }
+
+/* ---------- Tables ---------- */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+  margin: 0 0 5mm;
+  page-break-inside: avoid;
+}
+
+.table thead th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--ps-dark);
+  border-bottom: 1.5px solid var(--ps-dark);
+  padding: 2.5mm 2mm;
+}
+
+.table tbody td {
+  padding: 2.5mm 2mm;
+  border-bottom: 1px solid var(--mauve);
+  vertical-align: top;
+}
+
+/* Numeric cells take the viz face so figures match the charts. Add class="num"
+   to any <td>/<th> holding a number — right-aligned and tabular by default. */
+.table td.num,
+.table th.num {
+  font-family: var(--font-viz);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.table tbody tr:nth-child(even) td { background: var(--purple-100); }
+
+.table tr.total td {
+  background: var(--ps-purple);
+  color: var(--ps-white);
+  font-weight: 600;
+  border-bottom: 0;
+}
+
+.table .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------- Callouts ---------- */
+
+.callout {
+  background: var(--purple-100);
+  border-left: 3px solid var(--ps-purple);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 4mm 5mm;
+  margin: 0 0 5mm;
+  page-break-inside: avoid;
+}
+
+.callout.dark {
+  background: var(--ps-dark);
+  border-left-color: var(--ps-purple);
+  color: var(--ps-white);
+}
+
+.callout.dark .caption { color: var(--mauve); }
+.callout p:last-child { margin-bottom: 0; }
+
+.pill {
+  display: inline-block;
+  background: var(--ps-purple);
+  color: var(--ps-white);
+  font-size: 8.5pt;
+  font-weight: 500;
+  padding: 1mm 3mm;
+  border-radius: 999px;
+}
+
+.pill.quiet { background: var(--mist); color: var(--violet); }
+
+/* ---------- Appendix ---------- */
+
+.appendix { font-size: 9pt; color: var(--violet); }
+.appendix h2 { color: var(--ps-dark); }
+.appendix .table { font-size: 8.5pt; }
